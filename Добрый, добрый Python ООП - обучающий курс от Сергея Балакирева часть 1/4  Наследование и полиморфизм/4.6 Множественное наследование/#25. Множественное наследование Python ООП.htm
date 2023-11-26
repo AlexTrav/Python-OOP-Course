@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html><head>
+	<!-- base href="https://proproprogs.ru/" -->
+	<title>#25. Множественное наследование | Python ООП</title>
+	<meta name="yandex-verification" content="dc612d99275111ce">
+	<meta name="google-site-verification" content="dBeU07wRdu1RPn01tUx7i7POaYp6QVgQiuCLHWLHudM">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="shortcut icon" href="https://proproprogs.ru/images/main.ico" type="image/x-icon">
+	<script async="" src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/tag.js"></script><script type="text/javascript" src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/jquery-1.9.0.min.js"></script>
+	<link rel="stylesheet" href="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/fonts.css">
+	<link type="text/css" href="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/styles.css" rel="stylesheet">
+	<link type="text/css" href="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/video.css" rel="stylesheet">
+	<meta name="description" content="Как работает множественное наследование (multiple inheritance) в Python. Зачем это нужно. Пример использования при реализации идеи минсинов (mixins). Алгоритм обхода базовых классов MRO.">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<script>
+function onShowMobileMenu() {
+	let m = $('#topmenu-toggle');
+	if( m.is(":visible") ) m.hide();
+	else m.show();
+}
+</script>
+
+<table class="table-page" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr><td valign="top">
+		<div class="header">
+			<ul class="mainmenu-mobile">
+			<li class="logo"><a href="https://proproprogs.ru/index.php"><div class="logo"></div></a></li>
+			<li class="last"><a href="javascript:onShowMobileMenu()"><div class="mobile-menu-img"></div></a></li>
+			</ul>
+
+			<ul id="mainmenu" class="mainmenu">
+			<li class="logo"><a href="https://proproprogs.ru/index.php"><div class="logo"></div></a></li>
+			<li><a href="https://proproprogs.ru/python">Python</a></li><li><a href="https://proproprogs.ru/js">JavaScript</a></li><li><a href="https://proproprogs.ru/java">Java</a></li><li><a href="https://proproprogs.ru/data">Обработка данных</a></li><li><a href="https://proproprogs.ru/else">Еще</a></li>
+			<li class="last"><a href="mailto:sc_lib@list.ru">sc_lib@list.ru</a></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="topmenu-toggle" id="topmenu-toggle">
+			<ul class="mobile-list"><li><a href="https://proproprogs.ru/python">Python</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/python_base">Основы Python</a></li><li><a href="https://proproprogs.ru/python_oop">Python ООП</a></li><li><a href="https://proproprogs.ru/wxpython">wxPython</a></li><li><a href="https://proproprogs.ru/modules">Модули</a></li><li><a href="https://proproprogs.ru/flask">Flask</a></li><li><a href="https://proproprogs.ru/django">Django</a></li></ul><li><a href="https://proproprogs.ru/js">JavaScript</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/javascript">Основы JavaScript</a></li><li><a href="https://proproprogs.ru/javascript_dom">JavaScript DOM</a></li><li><a href="https://proproprogs.ru/javascript_oop">JavaScript ООП</a></li></ul><li><a href="https://proproprogs.ru/java">Java</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/java_base">Основы Java</a></li><li><a href="https://proproprogs.ru/java_oop">Java ООП</a></li></ul><li><a href="https://proproprogs.ru/data">Обработка данных</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/neural_network">Нейронные сети</a></li><li><a href="https://proproprogs.ru/dsp">ЦОС</a></li><li><a href="https://proproprogs.ru/fractals">Фракталы</a></li><li><a href="https://proproprogs.ru/ga">Генетические алгоритмы</a></li><li><a href="https://proproprogs.ru/tensorflow">Tensorflow</a></li><li><a href="https://proproprogs.ru/ml">ML</a></li></ul><li><a href="https://proproprogs.ru/else">Еще</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/structure_data">Структуры данных</a></li></ul></ul>
+		</div>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(61572289, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/61572289" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<table class="table-content" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr><td class="left-chapters" valign="top">
+	<ul id="leftchapters">
+	<li>Наследование и полиморфизм</li>
+	<li><a href="https://proproprogs.ru/python_oop/python-nasledovanie-v-obektno-orientirovannom-programmirovanii">Наследование в объектно-ориентированном программировании</a></li><li><a href="https://proproprogs.ru/python_oop/python-funkciya-issubclass-nasledovanie-ot-vstroennyh-tipov-i-ot-object">Функция issubclass(). Наследование от встроенных типов и от object</a></li><li><a href="https://proproprogs.ru/python_oop/python-nasledovanie-funkciya-super-i-delegirovanie">Наследование. Функция super() и делегирование</a></li><li><a href="https://proproprogs.ru/python_oop/python-nasledovanie-atributy-private-i-protected">Наследование. Атрибуты private и protected</a></li><li><a href="https://proproprogs.ru/python_oop/python-polimorfizm-i-abstraktnye-metody">Полиморфизм и абстрактные методы</a></li><li class="selected">Множественное наследование</li><li><a href="https://proproprogs.ru/python_oop/python-kollekciya-slots">Коллекция __slots__</a></li><li><a href="https://proproprogs.ru/python_oop/python-kak-rabotaet-slots-s-property-i-pri-nasledovanii">Как работает __slots__ с property и при наследовании</a></li>
+	<li class="share">
+	<p>Поделиться</p>
+	<a class="share-vk" href="https://vk.com/share.php?url=https://proproprogs.ru/python_oop/python-mnozhestvennoe-nasledovanie" target="_blank" rel="nofollow"></a>
+	<a class="share-tw" href="https://twitter.com/intent/tweet?url=https://proproprogs.ru/python_oop/python-mnozhestvennoe-nasledovanie" target="_blank" rel="nofollow"></a>
+	<p>Наш канал</p>
+	<a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists" target="_blank" rel="nofollow"></a>
+	</li>
+	</ul>
+</td><td class="content" valign="top">
+	<ul class="breadcrumbs">
+	<li><a href="https://proproprogs.ru/index.php">Главная</a></li>
+	<li><a href="https://proproprogs.ru/python_oop">Python ООП</a></li>
+	<li class="last">Наследование и полиморфизм</li>
+	</ul>
+
+	<div class="content-text"><h1>Множественное наследование</h1>
+
+  	<div class="container"><div class="video_button">
+	<a href="https://www.youtube.com/watch?v=9YPooWY6x9o&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank" rel="nofollow">
+	<div class="title">Смотреть материал на видео</div>
+	</a>
+</div>
+
+<p>Мы продолжаем
+изучать тему наследования. В языке Python допускается
+множественное наследование, когда один дочерний класс образуется сразу от
+нескольких базовых, согласно синтаксису:
+
+</p><p>class A(base1, base2, …, baseN):
+<br>…
+
+</p><p>Давайте
+посмотрим, как это работает и для чего вообще нужно. Признаюсь честно, я не
+сразу смог придумать учебный пример, где можно было бы показать
+целесообразность применения множественного наследования. То есть, он
+применяется не так часто, как обычное наследование от одного класса. Но, тем не
+менее это тоже важный механизм и некоторые подходы к программированию его
+активно используют. Например, идея миксинов (mixins) в Python реализуется
+через множественное наследование. И учебный пример я решил связать именно с
+ними, а заодно показать еще один прием в программировании.
+
+</p><p>Давайте
+представим, что мы делаем интернет-магазин по продаже товаров, например,
+ноутбуков, дисков, процессоров и т.п. Каждый товар будет определяться своим
+классом, а общим (базовым) для них всех будет класс Goods – товары. Также
+у каждого товара обязательно будут поля:
+
+</p><ul>
+<li>name – наименование
+</li><li>weight – вес
+</li><li>price – цена
+</li></ul>
+
+<p>Для примера
+запишем в нашей программе базовый класс Goods:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> Goods:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__init__</span><span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: #66cc66;">,</span> name<span style="color: #66cc66;">,</span> weight<span style="color: #66cc66;">,</span> price<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span><span style="color: #483d8b;">"init MixinLog"</span><span style="color: black;">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">name</span> <span style="color: #66cc66;">=</span> name
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">weight</span> <span style="color: #66cc66;">=</span> weight
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">price</span> <span style="color: #66cc66;">=</span> price
+&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> print_info<span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span>f<span style="color: #483d8b;">"{self.name}, {self.weight}, {self.price}"</span><span style="color: black;">)</span></pre></div></div>
+
+<p>И один дочерний
+класс для ноутбуков:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> NoteBook<span style="color: black;">(</span>Goods<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">pass</span></pre></div></div>
+
+<p>Затем, мы можем
+создать объект для ноутбука:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">n <span style="color: #66cc66;">=</span> NoteBook<span style="color: black;">(</span><span style="color: #483d8b;">"Acer"</span><span style="color: #66cc66;">,</span> <span style="color: #ff4500;">1.5</span><span style="color: #66cc66;">,</span> <span style="color: #ff4500;">30000</span><span style="color: black;">)</span></pre></div></div>
+
+<p>и распечатать
+информацию о нем:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">n.<span style="color: black;">print_info</span><span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>Пока ничего
+нового здесь нет. Но потом, к нам подходит тимлид и говорит:
+
+</p><p>- Дорогой
+сеньор, добавь, пожалуйста, возможность логирования товаров магазина.
+
+</p><p>И как бы вы
+поступили на месте этого сеньора? Плохой сеньор начнет прописывать логику
+логирования либо непосредственно в базовом классе Goods, либо уровнем
+выше (в иерархии наследования). А хороший воспользуется идеей миксинов. Для
+этого он создаст еще один класс, который можно назвать:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> MixinLog:
+&nbsp;&nbsp;&nbsp; ID <span style="color: #66cc66;">=</span> <span style="color: #ff4500;">0</span>
+&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__init__</span><span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span><span style="color: #483d8b;">"init MixinLog"</span><span style="color: black;">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">ID</span> +<span style="color: #66cc66;">=</span> <span style="color: #ff4500;">1</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: #008000;">id</span> <span style="color: #66cc66;">=</span> <span style="color: #008000;">self</span>.<span style="color: black;">ID</span>
+&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> save_sell_log<span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span>f<span style="color: #483d8b;">"{self.id}: товар продан в 00:00 часов"</span><span style="color: black;">)</span></pre></div></div>
+
+<p>Этот класс
+работает совершенно независимо от классов Goods и Notebook и лишь
+добавляет функционал по логированию товаров с использованием их id. Такие
+независимые базовые классы и получили название миксинов – примесей. 
+
+</p><p>Добавим этот класс
+в цепочку наследования:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> NoteBook<span style="color: black;">(</span>Goods<span style="color: #66cc66;">,</span> MixinLog<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">pass</span></pre></div></div>
+
+<p>а ниже вызовем
+метод save_sell_log():
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">n.<span style="color: black;">save_sell_log</span><span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>И видим ошибку.
+Очевидно, она связана с тем, что у второго класса MixinLog не был вызван
+инициализатор. Почему так произошло? Как мы уже знаем, при создании объектов
+инициализатор ищется сначала в дочернем классе, но так как его там нет, то в
+первом базовом Goods. Он там есть, выполняется и на этом
+инициализация нашего объекта NoteBook завершается. Однако, нам нужно
+также взывать инициализатор и второго базового класса MixinLog. В данном
+случае, сделать это можно с помощью объекта-посредника super(), которая и
+делегирует вызов метода __init__ класса MixinLog:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> Goods:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__init__</span><span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: #66cc66;">,</span> name<span style="color: #66cc66;">,</span> weight<span style="color: #66cc66;">,</span> price<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">super</span><span style="color: black;">(</span><span style="color: black;">)</span>.<span style="color: #0000cd;">__init__</span><span style="color: black;">(</span><span style="color: black;">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span><span style="color: #483d8b;">"init Goods"</span><span style="color: black;">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">name</span> <span style="color: #66cc66;">=</span> name
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">weight</span> <span style="color: #66cc66;">=</span> weight
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">price</span> <span style="color: #66cc66;">=</span> price
+…</pre></div></div>
+
+<p>Теперь, после
+запуска программы, мы видим, что оба инициализатора сработали и ошибок никаких
+нет. 
+
+</p><p>Но откуда
+функция super() «знает», что
+нужно обратиться ко второму базовому классу MixinLog, а, скажем, не к базовому
+классу object, от которого
+неявно наследуются все классы верхнего уровня? В Python существует
+специальный алгоритм обхода базовых классов при множественном наследовании.
+Сокращенно, он называется:
+
+</p><p align="center">MRO – Method Resolution Order
+
+</p><p>И говорит, в
+каком порядке обходить базовые классы:
+
+</p><p align="center"><img id="Рисунок 1" src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/image001.jpg" width="426" height="230">
+
+</p><p>Мы можем увидеть
+эту цепочку обхода базовых классов, если распечатать специальную коллекцию __mro__ любого класса:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span>NoteBook.__mro__<span style="color: black;">)</span></pre></div></div>
+
+<p>В консоли появится
+следующая последовательность:
+
+</p><p>(&lt;class
+'__main__.NoteBook'&gt;, &lt;class '__main__.Goods'&gt;, &lt;class
+'__main__.MixinLog'&gt;, &lt;class 'object'&gt;)
+
+</p><p>То есть, методы
+сначала ищутся в самом классе NoteBook, затем, в классе Goods, далее идет
+класс MixinLog и от него уже
+идет к классу object. Это цепочка
+обхода для нашего конкретного примера. При другой иерархии наследования эта
+цепочка может быть другой, но одно всегда неизменно –первый базовый класс,
+указанный при наследовании, выбирается первым (после дочернего, разумеется). И
+это важный момент. Вы всегда можете быть уверены, что инициализатор первого
+базового класса сработает в первую очередь. Почему это важно? Смотрите, при
+создании объекта NoteBook мы передаем ему три аргумента. Эти три
+аргумента, затем, передаются в инициализатор. И так как первым будет вызван
+инициализатор класса Goods, то мы уверены, что эти аргументы будут
+переданы именно в него, а не в какой-то другой инициализатор других базовых
+классов. И какая бы цепочка наследования у нас ни была, все равно первым будет
+вызываться метод __init__ класса Goods, потому что он
+записан первым. Это гарантирует работоспособность нашей программы при разных
+иерархиях множественного наследования.
+
+</p><p>Ради интереса,
+давайте поменяем местами базовые классы:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> NoteBook<span style="color: black;">(</span>MixinLog<span style="color: #66cc66;">,</span> Goods<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">pass</span></pre></div></div>
+
+<p>И мы сразу
+получаем ошибку, что в метод __init__ передаются четыре аргумента, а он
+принимает только один, так как здесь отрабатывает инициализатор уже класса MixinLog. Так что
+порядок следования базовых классов при множественном наследовании имеет важное
+значение. Первым должен идти «основной» класс и у него, как правило,
+инициализатор имеет несколько параметров. А далее, записываются классы, у
+которых, опять же, как правило, инициализаторы имеют только параметр self. Это второй
+важный момент. Когда мы собираемся использовать множественное наследование, то
+структуру классов следует продумывать так, чтобы инициализаторы вспомогательных
+классов имели только один параметр self, иначе будут
+сложности их использования. В чем они состоят? 
+
+</p><p>Давайте для
+примера пропишем в инициализаторе класса MixinLog один параметр p1
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> MixinLog:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__init__</span><span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: #66cc66;">,</span> p1<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">super</span><span style="color: black;">(</span><span style="color: black;">)</span>.<span style="color: #0000cd;">__init__</span><span style="color: black;">(</span><span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span> <span style="color: #ff4500;">2</span><span style="color: black;">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;…</pre></div></div>
+
+<p>И объявим еще
+один класс миксинов, где в инициализаторе два параметра:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> MixinLog2:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__init__</span><span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: #66cc66;">,</span> p1<span style="color: #66cc66;">,</span> p2<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">super</span><span style="color: black;">(</span><span style="color: black;">)</span>.<span style="color: #0000cd;">__init__</span><span style="color: black;">(</span><span style="color: black;">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span><span style="color: #483d8b;">"init MixinLog 2"</span><span style="color: black;">)</span></pre></div></div>
+
+<p>В каждом методе __init__ мы также
+делаем делегированный вызов инициализатора следующего базового класса. А
+цепочка наследования будет такой:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> NoteBook<span style="color: black;">(</span>Goods<span style="color: #66cc66;">,</span> MixinLog<span style="color: #66cc66;">,</span> MixinLog2<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">pass</span></pre></div></div>
+
+<p>Сейчас при
+запуске у нас не возникает никаких ошибок, так как последовательность MRO имеет вид:
+
+</p><p>(&lt;class
+'__main__.NoteBook'&gt;, &lt;class '__main__.Goods'&gt;, &lt;class '__main__.MixinLog'&gt;,
+&lt;class '__main__.MixinLog2'&gt;, &lt;class 'object'&gt;)
+
+</p><p>То есть, мы
+знаем, что функция super() в классе Goods вызовет метод __init__ класса MixinLog с одним
+дополнительным параметром, а затем, метод __init__ класса MixinLog2 с двумя
+дополнительными параметрами. И мы «жестко» это прописали. Но, как вы понимаете,
+если хотя бы немного изменится цепочка наследования, например, так:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> NoteBook<span style="color: black;">(</span>Goods<span style="color: #66cc66;">,</span> MixinLog2<span style="color: #66cc66;">,</span> MixinLog<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">pass</span></pre></div></div>
+
+<p>то все нарушится
+и получим ошибки. Чтобы в программах при множественном наследовании не
+возникало проблем с зависимостью последовательности наследования дополнительных
+базовых классов, их инициализаторы следует создавать с одним параметром self и в каждом из
+них прописывать делегированный вызов инициализатора следующего класса командой:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #008000;">super</span><span style="color: black;">(</span><span style="color: black;">)</span>.<span style="color: #0000cd;">__init__</span><span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>Тогда точно
+никаких особых проблем при использовании множественного наследования не
+возникнет.
+
+</p><p>Последнее, что я
+хочу отметить на этом занятии, это вызов методов с одинаковыми именами из базовых
+классов. Давайте предположим, что в классе MixinLog имеется метод print_info
+с тем же именем, что и в классе Goods:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> print_info<span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span><span style="color: #483d8b;">"print_info класса MixinLog"</span><span style="color: black;">)</span></pre></div></div>
+
+<p>Понятно, что
+если сейчас его вызвать через объект класса NoteBook:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">n.<span style="color: black;">print_info</span><span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>то мы обратимся
+к методу класса Goods, так как он записан первым в цепочке
+наследования и в соответствии с алгоритмом обхода MRO он будет найден
+первым. Но что если мы хотим вызвать этот метод из второго базового класса MixinLog? Как поступить?
+Сделать это можно двумя способами. Либо напрямую вызвать этот метод через класс
+MixinLog:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">MixinLog.<span style="color: black;">print_info</span><span style="color: black;">(</span>n<span style="color: black;">)</span></pre></div></div>
+
+<p>Обратите
+внимание, что в этом случае нам обязательно нужно указать первым аргументом
+ссылку на объект класса NoteBook. Либо, определить какой-либо
+метод в классе NoteBook (пусть он называется также):
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> NoteBook<span style="color: black;">(</span>Goods<span style="color: #66cc66;">,</span> MixinLog<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> print_info<span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MixinLog.<span style="color: black;">print_info</span><span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span></pre></div></div>
+
+<p>И тогда будет
+вызываться метод именно второго базового класса MixinLog.
+
+</p><p>Обычно, если
+нужно делать такие подмены, то есть, из конкретного дочернего класса вызывать
+метод другого (не первого) базового класса, то создают метод в дочернем классе
+с тем же именем, а затем, явно указывают нужный базовый класс.
+
+</p><p>Вот так работает
+множественное наследование в языке Python. 
+</p><div class="video_container">
+	<h3 class="video_title">Видео по теме</h3>
+	<div class="video_list">
+		<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Z7AY41tE-3U&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_002.jpg"></div>
+	<p class="video_item_title">Концепция ООП простыми словами</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=P4CNNo8jWj4&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_007.jpg"></div>
+	<p class="video_item_title">#1. Классы и объекты. Атрибуты классов и объектов</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Lw8TeLS4_IA&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_022.jpg"></div>
+	<p class="video_item_title">#2. Методы классов. Параметр self</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=-J3Ou8-8vVk&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_031.jpg"></div>
+	<p class="video_item_title">#3. Инициализатор __init__ и финализатор __del__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=-xoT6rntpK0&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_006.jpg"></div>
+	<p class="video_item_title">#4. Магический метод __new__. Пример паттерна Singleton</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=78PTvj2wYH8&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default.jpg"></div>
+	<p class="video_item_title">#5. Методы класса (classmethod) и статические методы (staticmethod)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=RipfqbH0eqY&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_030.jpg"></div>
+	<p class="video_item_title">#6. Режимы доступа public, private, protected. Сеттеры и геттеры</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=CAx-NLFc-Z4&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_027.jpg"></div>
+	<p class="video_item_title">#7. Магические методы __setattr__, __getattribute__, __getattr__ и __delattr__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=WNj55JzXnvc&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_003.jpg"></div>
+	<p class="video_item_title">#8. Паттерн Моносостояние</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=MxviMwbGl3I&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_039.jpg"></div>
+	<p class="video_item_title">#9. Свойства property. Декоратор @property</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=ury9pdPXa6s&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_026.jpg"></div>
+	<p class="video_item_title">#10. Пример использования объектов property</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=ACqsYPbgePk&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_004.jpg"></div>
+	<p class="video_item_title">#11. Дескрипторы (data descriptor и non-data descriptor)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=UqX5Qekb9sU&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_033.jpg"></div>
+	<p class="video_item_title">#12. Магический метод __call__. Функторы и классы-декораторы</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Aabdr3yxEhQ&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_032.jpg"></div>
+	<p class="video_item_title">#13. Магические методы __str__, __repr__, __len__, __abs__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=OMMQ1ZNKK6Q&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_037.jpg"></div>
+	<p class="video_item_title">#14 Магические методы __add__, __sub__, __mul__, __truediv__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=l3jMyZKDxXE&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_035.jpg"></div>
+	<p class="video_item_title">#15. Методы сравнений __eq__, __ne__, __lt__, __gt__ и другие</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Cfx4VCnWeCE&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_009.jpg"></div>
+	<p class="video_item_title">#16. Магические методы __eq__ и __hash__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=a2L5vyCUvzo&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_010.jpg"></div>
+	<p class="video_item_title">#17. Магический метод __bool__ определения правдивости объектов</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=EAoiOwYQSuY&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_013.jpg"></div>
+	<p class="video_item_title">#18. Магические методы __getitem__, __setitem__ и __delitem__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=SDJ-Vmf_pxk&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_018.jpg"></div>
+	<p class="video_item_title">#19. Магические методы __iter__ и __next__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=7WVYqjdMa6U&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_012.jpg"></div>
+	<p class="video_item_title">#20. Наследование в объектно-ориентированном программировании</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=JTmb2QHZUGg&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_038.jpg"></div>
+	<p class="video_item_title">#21. Функция issubclass(). Наследование от встроенных типов и от object</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=BTV9esoCwEE&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_016.jpg"></div>
+	<p class="video_item_title">#22. Наследование. Функция super() и делегирование</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=zHgPAm-imvY&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_034.jpg"></div>
+	<p class="video_item_title">#23. Наследование. Атрибуты private и protected</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=fzUI3NyJflw&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_029.jpg"></div>
+	<p class="video_item_title">#24. Полиморфизм и абстрактные методы</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=9YPooWY6x9o&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_008.jpg"></div>
+	<p class="video_item_title">#25. Множественное наследование</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Cz-grBsGGkQ&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_015.jpg"></div>
+	<p class="video_item_title">#26. Коллекция __slots__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=7xXPuIdfoUU&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_036.jpg"></div>
+	<p class="video_item_title">#27. Как работает __slots__ с property и при наследовании</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=MFIlltaeIgs&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_011.jpg"></div>
+	<p class="video_item_title">#28. Введение в обработку исключений. Блоки try / except</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=3DmzotEptvM&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_024.jpg"></div>
+	<p class="video_item_title">#29. Обработка исключений. Блоки finally и else</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=jVHvFxmiLmI&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_005.jpg"></div>
+	<p class="video_item_title">#30. Распространение исключений (propagation exceptions)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=XR-16WMXZOY&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_020.jpg"></div>
+	<p class="video_item_title">#31. Инструкция raise и пользовательские исключения</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=FkhnVkl0EgM&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_019.jpg"></div>
+	<p class="video_item_title">#32. Менеджеры контекстов. Оператор with</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=2T83JhAeC6U&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_021.jpg"></div>
+	<p class="video_item_title">#33. Вложенные классы</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=tp_cGBN_SQA&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_014.jpg"></div>
+	<p class="video_item_title">#34. Метаклассы. Объект type</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=_A90qAV_P5U&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_017.jpg"></div>
+	<p class="video_item_title">#35. Пользовательские метаклассы. Параметр metaclass</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=JlMfyDlV_7A&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_040.jpg"></div>
+	<p class="video_item_title">#36. Метаклассы в API ORM Django</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=SR6AI7ovZQE&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_025.jpg"></div>
+	<p class="video_item_title">#37. Введение в Python Data Classes (часть 1)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=0yOWSxRzSlU&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_023.jpg"></div>
+	<p class="video_item_title">#38. Введение в Python Data Classes (часть 2)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=iH9kwFJoK-o&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%2325.%20%D0%9C%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Python%20%D0%9E%D0%9E%D0%9F_files/default_028.jpg"></div>
+	<p class="video_item_title">#39. Python Data Classes при наследовании</p>
+	</a>
+</div>
+
+	</div>
+</div></div>
+
+	<ul class="control"><li class="first"><a href="https://proproprogs.ru/python_oop/python-polimorfizm-i-abstraktnye-metody">Предыдущая</a></li>
+
+<li class="last"><a href="https://proproprogs.ru/python_oop/python-kollekciya-slots">Следующая</a></li></ul><div class="clear"></div>
+
+</div></td></tr></tbody></table>
+</td></tr>
+<tr><td valign="top">
+	<div id="footer">
+		<p>© 2023 Частичное или полное копирование информации с данного сайта 
+для распространения на других ресурсах, в том числе и бумажных, строго 
+запрещено. Все тексты и изображения являются собственностью сайта</p>
+		<p><a href="https://proproprogs.ru/confidencial">Политика конфиденциальности</a> | <a href="https://proproprogs.ru/terms">Пользовательское соглашение</a>
+	</p></div>
+</td></tr></tbody></table>
+
+
+</body></html>

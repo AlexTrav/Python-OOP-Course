@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html><head>
+	<!-- base href="https://proproprogs.ru/" -->
+	<title>#2. Методы классов. Параметр self | Python ООП</title>
+	<meta name="yandex-verification" content="dc612d99275111ce">
+	<meta name="google-site-verification" content="dBeU07wRdu1RPn01tUx7i7POaYp6QVgQiuCLHWLHudM">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="shortcut icon" href="https://proproprogs.ru/images/main.ico" type="image/x-icon">
+	<script async="" src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/tag.js"></script><script type="text/javascript" src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/jquery-1.9.0.min.js"></script>
+	<link rel="stylesheet" href="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/fonts.css">
+	<link type="text/css" href="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/styles.css" rel="stylesheet">
+	<link type="text/css" href="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/video.css" rel="stylesheet">
+	<meta name="description" content="Добавляем методы в классы. Вызов методов через класс и его экземпляры. Параметр self. Зачем нужен и за что отвечает.">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<script>
+function onShowMobileMenu() {
+	let m = $('#topmenu-toggle');
+	if( m.is(":visible") ) m.hide();
+	else m.show();
+}
+</script>
+
+<table class="table-page" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr><td valign="top">
+		<div class="header">
+			<ul class="mainmenu-mobile">
+			<li class="logo"><a href="https://proproprogs.ru/index.php"><div class="logo"></div></a></li>
+			<li class="last"><a href="javascript:onShowMobileMenu()"><div class="mobile-menu-img"></div></a></li>
+			</ul>
+
+			<ul id="mainmenu" class="mainmenu">
+			<li class="logo"><a href="https://proproprogs.ru/index.php"><div class="logo"></div></a></li>
+			<li><a href="https://proproprogs.ru/python">Python</a></li><li><a href="https://proproprogs.ru/js">JavaScript</a></li><li><a href="https://proproprogs.ru/java">Java</a></li><li><a href="https://proproprogs.ru/data">Обработка данных</a></li><li><a href="https://proproprogs.ru/else">Еще</a></li>
+			<li class="last"><a href="mailto:sc_lib@list.ru">sc_lib@list.ru</a></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="topmenu-toggle" id="topmenu-toggle">
+			<ul class="mobile-list"><li><a href="https://proproprogs.ru/python">Python</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/python_base">Основы Python</a></li><li><a href="https://proproprogs.ru/python_oop">Python ООП</a></li><li><a href="https://proproprogs.ru/wxpython">wxPython</a></li><li><a href="https://proproprogs.ru/modules">Модули</a></li><li><a href="https://proproprogs.ru/flask">Flask</a></li><li><a href="https://proproprogs.ru/django">Django</a></li></ul><li><a href="https://proproprogs.ru/js">JavaScript</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/javascript">Основы JavaScript</a></li><li><a href="https://proproprogs.ru/javascript_dom">JavaScript DOM</a></li><li><a href="https://proproprogs.ru/javascript_oop">JavaScript ООП</a></li></ul><li><a href="https://proproprogs.ru/java">Java</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/java_base">Основы Java</a></li><li><a href="https://proproprogs.ru/java_oop">Java ООП</a></li></ul><li><a href="https://proproprogs.ru/data">Обработка данных</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/neural_network">Нейронные сети</a></li><li><a href="https://proproprogs.ru/dsp">ЦОС</a></li><li><a href="https://proproprogs.ru/fractals">Фракталы</a></li><li><a href="https://proproprogs.ru/ga">Генетические алгоритмы</a></li><li><a href="https://proproprogs.ru/tensorflow">Tensorflow</a></li><li><a href="https://proproprogs.ru/ml">ML</a></li></ul><li><a href="https://proproprogs.ru/else">Еще</a></li><ul class="mobile-list-expand"><li><a href="https://proproprogs.ru/structure_data">Структуры данных</a></li></ul></ul>
+		</div>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(61572289, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/61572289" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<table class="table-content" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr><td class="left-chapters" valign="top">
+	<ul id="leftchapters">
+	<li>Свойства и методы класса</li>
+	<li><a href="https://proproprogs.ru/python_oop/koncepciya-oop-prostymi-slovami">Концепция ООП простыми словами</a></li><li><a href="https://proproprogs.ru/python_oop/klassy-i-obekty-atributy-klassov-i-obektov">Классы и объекты. Атрибуты классов и объектов</a></li><li class="selected">Методы классов. Параметр self</li><li><a href="https://proproprogs.ru/python_oop/inicializator-init-i-finalizator-del">Инициализатор __init__ и финализатор __del__</a></li><li><a href="https://proproprogs.ru/python_oop/magicheskiy-metod-new-primer-patterna-singleton">Магический метод __new__. Пример паттерна Singleton</a></li><li><a href="https://proproprogs.ru/python_oop/metody-klassa-classmethod-i-staticheskie-metody-staticmethod">Методы класса (classmethod) и статические методы (staticmethod)</a></li><li><a href="https://proproprogs.ru/python_oop/rezhimy-dostupa-public-private-protected-settery-i-gettery">Режимы доступа public, private, protected. Сеттеры и геттеры</a></li><li><a href="https://proproprogs.ru/python_oop/magicheskie-metody-setattr-getattribute-getattr-i-delattr">Магические методы __setattr__, __getattribute__, __getattr__ и __delattr__</a></li><li><a href="https://proproprogs.ru/python_oop/pattern-monosostoyanie">Паттерн моносостояние</a></li><li><a href="https://proproprogs.ru/python_oop/svoystva-property-dekorator-property">Свойства property. Декоратор @property</a></li><li><a href="https://proproprogs.ru/python_oop/primer-ispolzovaniya-obektov-property">Пример использования объектов property</a></li><li><a href="https://proproprogs.ru/python_oop/deskriptory-data-descriptor-i-non-data-descriptor">Дескрипторы (data descriptor и non-data descriptor)</a></li>
+	<li class="share">
+	<p>Поделиться</p>
+	<a class="share-vk" href="https://vk.com/share.php?url=https://proproprogs.ru/python_oop/metody-klassov-parametr-self" target="_blank" rel="nofollow"></a>
+	<a class="share-tw" href="https://twitter.com/intent/tweet?url=https://proproprogs.ru/python_oop/metody-klassov-parametr-self" target="_blank" rel="nofollow"></a>
+	<p>Наш канал</p>
+	<a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists" target="_blank" rel="nofollow"></a>
+	</li>
+	</ul>
+</td><td class="content" valign="top">
+	<ul class="breadcrumbs">
+	<li><a href="https://proproprogs.ru/index.php">Главная</a></li>
+	<li><a href="https://proproprogs.ru/python_oop">Python ООП</a></li>
+	<li class="last">Свойства и методы класса</li>
+	</ul>
+
+	<div class="content-text"><h1>Методы классов. Параметр self</h1>
+
+  	<div class="container"><div class="video_button">
+	<a href="https://www.youtube.com/watch?v=Lw8TeLS4_IA&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank" rel="nofollow">
+	<div class="title">Смотреть материал на видео</div>
+	</a>
+</div>
+
+<p>Мы продолжаем
+изучать ООП языка Python. Как я говорил на первом занятии, класс
+может содержать свойства (данные) и методы (функции). Благодаря методам внутри
+класса можно реализовывать самые разные алгоритмы, то есть методы – это
+действия. Именно поэтому, в названиях методов используют глаголы, например:
+
+</p><p align="center">set_value, get_param, start, stop, и т.п.
+
+</p><p>В то время как
+именами свойств (данных) выступают существительные:
+
+</p><p align="center">color, size, x, y, и т.п.
+
+</p><p>Рекомендуется
+придерживаться этого простого правила. 
+
+</p><p>Давайте, для примера объявим метод set_coords в классе Point, который будет
+просто выводить в консоль сообщение «вызов метода set_coords»:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> Point:
+&nbsp;&nbsp;&nbsp; color <span style="color: #66cc66;">=</span> <span style="color: #483d8b;">'red'</span>
+&nbsp;&nbsp;&nbsp; circle <span style="color: #66cc66;">=</span> <span style="color: #ff4500;">2</span>
+&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> set_coords<span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span><span style="color: #483d8b;">"вызов метода set_coords"</span><span style="color: black;">)</span></pre></div></div>
+
+<p>Здесь сразу
+бросается в глаза вот этот параметр self, который
+автоматически прописывает интегрированная среда. Зачем он здесь, если мы пока
+ничего не собираемся передавать этому методу? Давайте его уберем! Пока никаких
+проблем не возникло. Мало того, мы можем его вызвать из класса Point:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">Point.<span style="color: black;">set_coords</span><span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>и все будет
+работать без ошибок. Здесь мы видим, как вызываются методы класса. Все довольно
+очевидно. Записываем имя класса (Point), и через точку указываем имя метода. В
+конце обязательно прописываем круглые скобки, так как это оператор вызова
+функций. И, так как метод – это функция класса, то для вызова метода
+используется тот же оператор, что и для вызова функций.
+
+</p><p>В результате, мы
+получили класс, в котором два свойства и один метод. Далее, создадим экземпляр
+этого класса:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">pt <span style="color: #66cc66;">=</span> Point<span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>И, как мы с вами
+говорили, через объект pt можно обращаться
+ко всем атрибутам класса Point, в том числе и к методу set_coords:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">pt.<span style="color: black;">set_coords</span></pre></div></div>
+
+<p>Этот атрибут
+ссылается на объект-функцию, которую мы определили в классе Point. Попробуем ее
+вызвать:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">pt.<span style="color: black;">set_coords</span><span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>Видим ошибку,
+что в метод set_coords при вызове
+передается один аргумент, а он у нас определен без параметров. Дело в том, что
+когда мы вызываем методы класса через его объекты, то интерпретатор Python автоматически
+добавляет первым аргументом ссылку на объект, из которого этот метод
+вызывается. 
+
+</p><p align="center"><img id="Рисунок 1" src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/image001.png" width="554" height="353">
+
+</p><p>Поэтому, если мы
+хотим внутри класса определить метод, который можно было бы вызывать из его
+экземпляров, то дополнительно прописывается первый параметр, обычно, с именем self:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> Point:
+&nbsp;&nbsp;&nbsp; color <span style="color: #66cc66;">=</span> <span style="color: #483d8b;">'red'</span>
+&nbsp;&nbsp;&nbsp; circle <span style="color: #66cc66;">=</span> <span style="color: #ff4500;">2</span>
+&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> set_coords<span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span><span style="color: #483d8b;">"вызов метода set_coords "</span> + <span style="color: #008000;">str</span><span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span><span style="color: black;">)</span></pre></div></div>
+
+<p>Еще раз,
+параметр self будет ссылаться
+на экземпляр класса, из которого вызывается метод. Зачем это надо? Сейчас
+узнаете. После этого дополнения мы уже не сможем вызвать данный метод через
+класс без указания первого аргумента:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">Point.<span style="color: black;">set_coords</span><span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>но можем через
+его объекты:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">pt.<span style="color: black;">set_coords</span><span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>То есть, когда
+метод вызывается через класс, то Python автоматически не
+подставляет никаких аргументов. А когда вызов идет через экземпляры класса, то
+первый аргумент – это всегда ссылка на экземпляр. Данный момент нужно знать и
+помнить.
+
+</p><p>Но мы все же
+можем вызвать метод set_coords и через класс, если явно передадим ссылку на
+объект pt, следующим
+образом:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">Point.<span style="color: black;">set_coords</span><span style="color: black;">(</span>pt<span style="color: black;">)</span></pre></div></div>
+
+<p>Именно это на
+автомате делает Python, когда вызов осуществляется через
+объекты классов. 
+
+</p><p>Так зачем
+понадобилось такое поведение? Дело в том, что метод класса – это тоже его
+атрибут и когда создаются экземпляры класса, то метод становится общим для всех
+объектов и не копируется в них. Фактически, только благодаря параметру self мы «знаем»
+какой объект вызвал данный метод и можем организовать с ним обратную связь.
+
+</p><p>Например, пусть
+метод set_coords задает координаты точек для текущего объекта. Тогда, мы
+пропишем в нем два дополнительных параметра и через self в самом
+экземпляре класса создадим (либо переопределим) два свойства:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> Point:
+&nbsp;&nbsp;&nbsp; color <span style="color: #66cc66;">=</span> <span style="color: #483d8b;">'red'</span>
+&nbsp;&nbsp;&nbsp; circle <span style="color: #66cc66;">=</span> <span style="color: #ff4500;">2</span>
+&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> set_coords<span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: #66cc66;">,</span> x<span style="color: #66cc66;">,</span> y<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">x</span> <span style="color: #66cc66;">=</span> x
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">y</span> <span style="color: #66cc66;">=</span> y</pre></div></div>
+
+<p>В результате,
+при вызове метода:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">pt.<span style="color: black;">set_coords</span><span style="color: black;">(</span><span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span> <span style="color: #ff4500;">2</span><span style="color: black;">)</span>
+<span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span>pt.<span style="color: #0000cd;">__dict__</span><span style="color: black;">)</span></pre></div></div>
+
+<p>в объекте pt будут созданы
+два свойства x, y со значениями 1
+и 2. Вот для чего нужен этот параметр self. Если в
+программе создать еще один объект:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">pt2 <span style="color: #66cc66;">=</span> Point<span style="color: black;">(</span><span style="color: black;">)</span></pre></div></div>
+
+<p>и через него
+вызвать тот же самый метод:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">pt2.<span style="color: black;">set_coords</span><span style="color: black;">(</span><span style="color: #ff4500;">10</span><span style="color: #66cc66;">,</span> <span style="color: #ff4500;">20</span><span style="color: black;">)</span>
+<span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span>pt2.<span style="color: #0000cd;">__dict__</span><span style="color: black;">)</span></pre></div></div>
+
+<p>То увидим, что
+свойства x, y со значениями
+10 и 20 были созданы только в нем (в его пространстве имен) и никак не связаны
+с координатами другого объекта pt или классом Point. То есть, через
+self мы работаем с
+конкретным объектом, из которого был вызван данный метод.
+
+</p><p>Конечно, в
+классах мы можем прописывать произвольное количество методов. Например,
+определим еще один, который будет возвращать координаты точки в виде кортежа
+значений:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> Point:
+&nbsp;&nbsp;&nbsp; color <span style="color: #66cc66;">=</span> <span style="color: #483d8b;">'red'</span>
+&nbsp;&nbsp;&nbsp; circle <span style="color: #66cc66;">=</span> <span style="color: #ff4500;">2</span>
+&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> set_coords<span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: #66cc66;">,</span> x<span style="color: #66cc66;">,</span> y<span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">x</span> <span style="color: #66cc66;">=</span> x
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #008000;">self</span>.<span style="color: black;">y</span> <span style="color: #66cc66;">=</span> y
+&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">def</span> get_coords<span style="color: black;">(</span><span style="color: #008000;">self</span><span style="color: black;">)</span>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff7700;font-weight:bold;">return</span> <span style="color: black;">(</span><span style="color: #008000;">self</span>.<span style="color: black;">x</span><span style="color: #66cc66;">,</span> <span style="color: #008000;">self</span>.<span style="color: black;">y</span><span style="color: black;">)</span></pre></div></div>
+
+<p>И ниже в
+программе можем вызвать его:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span>pt.<span style="color: black;">get_coords</span><span style="color: black;">(</span><span style="color: black;">)</span><span style="color: black;">)</span></pre></div></div>
+
+<p>Интересно, что
+так как имя метода – это атрибут класса, то мы можем обратиться к нему через
+знакомую нам уже функцию:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;">res <span style="color: #66cc66;">=</span> <span style="color: #008000;">getattr</span><span style="color: black;">(</span>pt<span style="color: #66cc66;">,</span> <span style="color: #483d8b;">'get_coords'</span><span style="color: black;">)</span>
+<span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span>res<span style="color: black;">)</span></pre></div></div>
+
+<p>Видим, что это
+ссылка на объект-функцию. А раз так, то ничто нам не мешает ее здесь вызывать:
+
+</p><div class="highlight"><div class="block"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">(</span>res<span style="color: black;">(</span><span style="color: black;">)</span><span style="color: black;">)</span></pre></div></div>
+
+<p>Конечно, так делают
+очень редко. Обычно используют синтаксис через точку. Я привел это, чтобы еще
+раз подчеркнуть, что имена методов – это те же самые атрибуты, просто они ведут
+не на данные, а на функции. Во всем остальном они схожи с атрибутами-данными
+класса.
+
+</p><h2>Заключение</h2>
+
+<p>Итак, на этом
+занятии вы должны были узнать, как определяются простые методы класса, за что
+отвечает параметр self и как происходит обращение к методам и их вызов.
+Если все это понятно, то смело переходите к следующему занятию, где мы
+продолжим эту тему.
+</p><div class="video_container">
+	<h3 class="video_title">Видео по теме</h3>
+	<div class="video_list">
+		<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Z7AY41tE-3U&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_024.jpg"></div>
+	<p class="video_item_title">Концепция ООП простыми словами</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=P4CNNo8jWj4&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_037.jpg"></div>
+	<p class="video_item_title">#1. Классы и объекты. Атрибуты классов и объектов</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Lw8TeLS4_IA&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_013.jpg"></div>
+	<p class="video_item_title">#2. Методы классов. Параметр self</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=-J3Ou8-8vVk&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_022.jpg"></div>
+	<p class="video_item_title">#3. Инициализатор __init__ и финализатор __del__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=-xoT6rntpK0&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_036.jpg"></div>
+	<p class="video_item_title">#4. Магический метод __new__. Пример паттерна Singleton</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=78PTvj2wYH8&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_006.jpg"></div>
+	<p class="video_item_title">#5. Методы класса (classmethod) и статические методы (staticmethod)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=RipfqbH0eqY&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_021.jpg"></div>
+	<p class="video_item_title">#6. Режимы доступа public, private, protected. Сеттеры и геттеры</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=CAx-NLFc-Z4&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_018.jpg"></div>
+	<p class="video_item_title">#7. Магические методы __setattr__, __getattribute__, __getattr__ и __delattr__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=WNj55JzXnvc&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_033.jpg"></div>
+	<p class="video_item_title">#8. Паттерн Моносостояние</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=MxviMwbGl3I&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_031.jpg"></div>
+	<p class="video_item_title">#9. Свойства property. Декоратор @property</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=ury9pdPXa6s&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_017.jpg"></div>
+	<p class="video_item_title">#10. Пример использования объектов property</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=ACqsYPbgePk&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_034.jpg"></div>
+	<p class="video_item_title">#11. Дескрипторы (data descriptor и non-data descriptor)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=UqX5Qekb9sU&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_025.jpg"></div>
+	<p class="video_item_title">#12. Магический метод __call__. Функторы и классы-декораторы</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Aabdr3yxEhQ&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_023.jpg"></div>
+	<p class="video_item_title">#13. Магические методы __str__, __repr__, __len__, __abs__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=OMMQ1ZNKK6Q&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_029.jpg"></div>
+	<p class="video_item_title">#14 Магические методы __add__, __sub__, __mul__, __truediv__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=l3jMyZKDxXE&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_027.jpg"></div>
+	<p class="video_item_title">#15. Методы сравнений __eq__, __ne__, __lt__, __gt__ и другие</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Cfx4VCnWeCE&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default.jpg"></div>
+	<p class="video_item_title">#16. Магические методы __eq__ и __hash__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=a2L5vyCUvzo&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_039.jpg"></div>
+	<p class="video_item_title">#17. Магический метод __bool__ определения правдивости объектов</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=EAoiOwYQSuY&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_040.jpg"></div>
+	<p class="video_item_title">#18. Магические методы __getitem__, __setitem__ и __delitem__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=SDJ-Vmf_pxk&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_009.jpg"></div>
+	<p class="video_item_title">#19. Магические методы __iter__ и __next__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=7WVYqjdMa6U&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_002.jpg"></div>
+	<p class="video_item_title">#20. Наследование в объектно-ориентированном программировании</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=JTmb2QHZUGg&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_032.jpg"></div>
+	<p class="video_item_title">#21. Функция issubclass(). Наследование от встроенных типов и от object</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=BTV9esoCwEE&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_007.jpg"></div>
+	<p class="video_item_title">#22. Наследование. Функция super() и делегирование</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=zHgPAm-imvY&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_026.jpg"></div>
+	<p class="video_item_title">#23. Наследование. Атрибуты private и protected</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=fzUI3NyJflw&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_020.jpg"></div>
+	<p class="video_item_title">#24. Полиморфизм и абстрактные методы</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=9YPooWY6x9o&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_038.jpg"></div>
+	<p class="video_item_title">#25. Множественное наследование</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=Cz-grBsGGkQ&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_005.jpg"></div>
+	<p class="video_item_title">#26. Коллекция __slots__</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=7xXPuIdfoUU&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_028.jpg"></div>
+	<p class="video_item_title">#27. Как работает __slots__ с property и при наследовании</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=MFIlltaeIgs&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_004.jpg"></div>
+	<p class="video_item_title">#28. Введение в обработку исключений. Блоки try / except</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=3DmzotEptvM&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_015.jpg"></div>
+	<p class="video_item_title">#29. Обработка исключений. Блоки finally и else</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=jVHvFxmiLmI&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_035.jpg"></div>
+	<p class="video_item_title">#30. Распространение исключений (propagation exceptions)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=XR-16WMXZOY&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_011.jpg"></div>
+	<p class="video_item_title">#31. Инструкция raise и пользовательские исключения</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=FkhnVkl0EgM&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_010.jpg"></div>
+	<p class="video_item_title">#32. Менеджеры контекстов. Оператор with</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=2T83JhAeC6U&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_012.jpg"></div>
+	<p class="video_item_title">#33. Вложенные классы</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=tp_cGBN_SQA&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_003.jpg"></div>
+	<p class="video_item_title">#34. Метаклассы. Объект type</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=_A90qAV_P5U&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_008.jpg"></div>
+	<p class="video_item_title">#35. Пользовательские метаклассы. Параметр metaclass</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=JlMfyDlV_7A&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_030.jpg"></div>
+	<p class="video_item_title">#36. Метаклассы в API ORM Django</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=SR6AI7ovZQE&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_016.jpg"></div>
+	<p class="video_item_title">#37. Введение в Python Data Classes (часть 1)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=0yOWSxRzSlU&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_014.jpg"></div>
+	<p class="video_item_title">#38. Введение в Python Data Classes (часть 2)</p>
+	</a>
+</div>
+<div class="video_item">
+	<a href="https://www.youtube.com/watch?v=iH9kwFJoK-o&amp;list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E" target="_blank">
+	<div class="thumb"><img src="%232.%20%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2.%20%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%20self%20Python%20%D0%9E%D0%9E%D0%9F_files/default_019.jpg"></div>
+	<p class="video_item_title">#39. Python Data Classes при наследовании</p>
+	</a>
+</div>
+
+	</div>
+</div></div>
+
+	<ul class="control"><li class="first"><a href="https://proproprogs.ru/python_oop/klassy-i-obekty-atributy-klassov-i-obektov">Предыдущая</a></li>
+
+<li class="last"><a href="https://proproprogs.ru/python_oop/inicializator-init-i-finalizator-del">Следующая</a></li></ul><div class="clear"></div>
+
+</div></td></tr></tbody></table>
+</td></tr>
+<tr><td valign="top">
+	<div id="footer">
+		<p>© 2023 Частичное или полное копирование информации с данного сайта 
+для распространения на других ресурсах, в том числе и бумажных, строго 
+запрещено. Все тексты и изображения являются собственностью сайта</p>
+		<p><a href="https://proproprogs.ru/confidencial">Политика конфиденциальности</a> | <a href="https://proproprogs.ru/terms">Пользовательское соглашение</a>
+	</p></div>
+</td></tr></tbody></table>
+
+
+</body></html>

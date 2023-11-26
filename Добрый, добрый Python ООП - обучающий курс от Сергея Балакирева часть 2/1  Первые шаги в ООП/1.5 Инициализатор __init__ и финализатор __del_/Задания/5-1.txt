@@ -1,0 +1,5 @@
+# здесь объ€вите класс TriangleChecker
+
+
+a, b, c = map(int, input().split()) # эту строчку не мен€ть
+# здесь создайте экземпл€р tr класса TriangleChecker и вызовите метод is_triangle() с выводом информации на экран
